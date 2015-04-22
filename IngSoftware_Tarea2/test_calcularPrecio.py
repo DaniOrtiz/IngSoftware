@@ -11,7 +11,7 @@ class Test_calcularPrecio(unittest.TestCase):
 
 
     def test0Timer(self):
-        # Caso de prueba tiempo de reservaciï¿½n = (0) minutos
+        # Caso de prueba tiempo de reservación = (0) minutos
         tarifa_de_prueba = Tarifa(5,7)
         ini_reserva = datetime.datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime.datetime(2015, 4, 21, 6, 15)
@@ -19,20 +19,15 @@ class Test_calcularPrecio(unittest.TestCase):
         calcularPrecio(tarifa_de_prueba, tiempo_reserva)
         
     def test15MinTimer(self):
-        # Caso de prueba tiempo de reservaciï¿½n = (15) minutos
+        # Caso de prueba tiempo de reservación = (15) minutos
         tarifa_de_prueba = Tarifa(5,7)
         ini_reserva = datetime.datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime.datetime(2015, 4, 21, 6, 30)
         tiempo_reserva = [ini_reserva,fin_reserva]
         d = calcularPrecio(tarifa_de_prueba, tiempo_reserva)
-<<<<<<< HEAD
-        self.assertEqual(d,5) # Arroja un error, la función calcularPrecio 
-# realiza los cálculos en función a los minutos 
-=======
-        self.assertEqual(d,5) 
+        self.assertEqual(d,5)
         # Arroja un error, la funciï¿½n calcularPrecio 
         # realiza los cï¿½lculos en funciï¿½n a los minutos 
->>>>>>> refs/heads/11-10323
         
     def test1Hour1MinTimer(self):
         # Caso de prueba tiempo de reservaciï¿½n = (1) hora, (1) minuto
@@ -42,22 +37,13 @@ class Test_calcularPrecio(unittest.TestCase):
         tiempo_reserva = [ini_reserva,fin_reserva]
         d = calcularPrecio(tarifa_de_prueba, tiempo_reserva)
         self.assertEqual(d,10) 
-<<<<<<< HEAD
-        # Arroja un error, la función calcularPrecio 
-        # realiza los cálculos en función a los minutos 
-=======
         # Arroja un error, la funciï¿½n calcularPrecio 
         # realiza los cï¿½lculos en funciï¿½n a los minutos 
->>>>>>> refs/heads/11-10323
         # Me da el precio de exactamente 1h1min no el de 
         # 2 horas.
         
     def test7DaysTimer(self):
-<<<<<<< HEAD
-    # Caso de prueba tiempo de reservación = (7) días
-=======
         # Caso de prueba tiempo de reservaciï¿½n = (7) dï¿½as
->>>>>>> refs/heads/11-10323
         tarifa_de_prueba = Tarifa(5,7)
         ini_reserva = datetime.datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime.datetime(2015, 4, 28, 6, 15)
