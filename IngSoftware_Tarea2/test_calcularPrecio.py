@@ -1,7 +1,8 @@
 '''
 Created on 21/4/2015
 
-@author: Dani
+@author: Daniela Ortiz (10-10517)
+         Carlos Ferreira (11-10323)
 '''
 import unittest
 from calcularPrecio import Tarifa,calcularPrecio
@@ -9,14 +10,16 @@ from datetime import datetime
 
 class Test_calcularPrecio(unittest.TestCase):
 
-
     def test0Timer(self):
         # Caso de prueba tiempo de reservacion = (0) minutos
         tarifa_de_prueba = Tarifa(5,7)
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 21, 6, 15)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        try:
+            calcularPrecio(tarifa_de_prueba, tiempo_reserva) 
+        except:
+            pass          
         
     def test0Tarifa(self):
         # Caso de prueba Tarifa(0,0)
@@ -24,7 +27,8 @@ class Test_calcularPrecio(unittest.TestCase):
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 28, 6, 10)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)    
+        precio = calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        self.assertEqual(precio, 0)  
     
     def test14MinTimer(self):
         # Caso de prueba tiempo de reservacion = (14) minutos
@@ -32,7 +36,11 @@ class Test_calcularPrecio(unittest.TestCase):
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 21, 6, 29)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)           
+        
+        try:
+            calcularPrecio(tarifa_de_prueba, tiempo_reserva) 
+        except:
+            pass          
         
     def test15MTimeSmallT(self):
         # Caso de prueba tiempo de reservacion = (15) minutos, tarifa pequenia
@@ -40,16 +48,17 @@ class Test_calcularPrecio(unittest.TestCase):
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 21, 6, 30)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        d = calcularPrecio(tarifa_de_prueba, tiempo_reserva)
-        self.assertEqual(d,5) 
+        precio = calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        self.assertEqual(precio, 0.01) 
             
     def test7DaysTimer(self):
-        # Caso de prueba tiempo de reservacion = (7) dias
-        tarifa_de_prueba = Tarifa(5,7)
+        # Caso de prueba tiempo de reservacion = (7) dias con tarifa decimal
+        tarifa_de_prueba = Tarifa(5.50,7.25)
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 28, 6, 15)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        precio = calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        self.assertEqual(precio,((5.50*5)+(7.25*2)))
     
     def test7Days1MinTimer(self):
         # Caso de prueba tiempo de reservacion = (7) dias, (1) minuto
@@ -57,7 +66,11 @@ class Test_calcularPrecio(unittest.TestCase):
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 28, 6, 16)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        
+        try:
+            calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        except:
+            pass
        
     
     def testNegativeTimer(self):
@@ -66,7 +79,11 @@ class Test_calcularPrecio(unittest.TestCase):
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 20, 6, 15)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        
+        try:
+            calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        except:
+            pass
         
     def testNegativeTarifa(self):
         # Caso de prueba tarifa negativa
@@ -74,7 +91,11 @@ class Test_calcularPrecio(unittest.TestCase):
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 27, 6, 15)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        
+        try:
+            calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        except:
+            pass
         
     def testImaginaryTarifa(self):
         # Caso de prueba tarifa imaginaria
@@ -114,7 +135,8 @@ class Test_calcularPrecio(unittest.TestCase):
         ini_reserva = datetime(2015, 4, 21, 6, 15)
         fin_reserva = datetime(2015, 4, 27, 6, 15)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        precio = calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        self.assertEqual(precio,((5.4*5)+ 7.6))
         
     def testSecondsTimer(self):
         # Caso de prueba tiempo de reservacion con segundos
@@ -133,13 +155,16 @@ class Test_calcularPrecio(unittest.TestCase):
         calcularPrecio(tarifa_de_prueba, tiempo_reserva)
         
     def testTimerMax(self):
-        # Caso de prueba tiempo de resevacion maximo
+        # Caso de prueba tiempo de reservacion maximo
         tarifa_de_prueba = Tarifa(2,3)
-        ini_reserva = datetime.max + 1
+        ini_reserva = datetime.max
         fin_reserva = datetime(2015, 4, 27, 6, 15)
         tiempo_reserva = [ini_reserva,fin_reserva]
-        calcularPrecio(tarifa_de_prueba, tiempo_reserva)
-    
+        
+        try:
+            calcularPrecio(tarifa_de_prueba, tiempo_reserva)
+        except:
+            pass
             
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
